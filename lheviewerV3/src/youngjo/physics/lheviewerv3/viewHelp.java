@@ -45,10 +45,10 @@ public class viewHelp extends View{
         super.onDraw(canvas);
         if((int)id == 0) {
         	String[] str ={"This is a event viewer for LHEfile.","", 
-        				   "1: Click the Button \"OK\", if you insert a No. ",
+        				   "1. Click the Button \"OK\", if you insert a No. ",
         				   "  of a event among default data.",
-        				   "2: Click the Button \"next\" or \"before\".",
-        				   "3: Check the checklist and select a file in the",
+        				   "2. Click the Button \"next\" or \"before\".",
+        				   "3. Check the checklist and select a file in the",
         				   "  dropdown menu. The files are located in ",
         				   "  \"/sdcard/\" (Plese, save a lhe file in the ",
         				   "  location!!) ","",

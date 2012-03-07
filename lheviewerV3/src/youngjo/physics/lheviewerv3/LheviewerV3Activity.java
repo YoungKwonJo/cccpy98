@@ -137,7 +137,7 @@ public class LheviewerV3Activity extends Activity {
     public void changeView(ArrayList<Particle> particles) {        
         //int event = Integer.parseInt(edit.getText().toString());
        // ArrayList<Particle> particles = getEvent( event);
-        int[] rgb = {0x99FF0000, 0x99550000, 0x9900FF00, 0x99005500, 0x990000FF, 0x99FFFF00, 0x9900FFFF};
+        int[] rgb = {0x99FF0000, 0x99AA0000, 0x9900FF00, 0x9900AA00, 0x990000FF, 0x99FFFF00, 0x9900FFFF};
         
         //main.addView(new myView(this,200,110,5, 0xFFFF00FF));
         main.removeAllViewsInLayout();
@@ -147,6 +147,7 @@ public class LheviewerV3Activity extends Activity {
         textEvent(particles);
 
         int r=1;
+  		main.addView(new myView(this, event , 0, 0, 0, 0,width,height,true));
         for(int i=0;i<particles.size();i++) {
         	Particle particle = particles.get(i);
 
@@ -169,7 +170,7 @@ public class LheviewerV3Activity extends Activity {
         	else r=4;
  
       		main.addView(new myView(this, event , ppx[i], ppy[i],
-                        (int) Math.round(particle.pt)/100+7, rgb[r],width,height));
+                        (int) Math.round(particle.pt)/100+7, rgb[r],width,height,false));
 
         }
        

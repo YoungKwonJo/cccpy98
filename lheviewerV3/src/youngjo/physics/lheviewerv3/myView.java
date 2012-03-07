@@ -14,6 +14,7 @@ public class myView extends View {
     private int event_;
     private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mPaint2 = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private boolean grid;
  
     private final Paint mP1 = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mP2 = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -24,7 +25,7 @@ public class myView extends View {
     private final Paint mP7 = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mP8 = new Paint(Paint.ANTI_ALIAS_FLAG);
     
-    public myView(Context context, int event, float x, float y, int r, int rgb, int width, int height) {
+    public myView(Context context, int event, float x, float y, int r, int rgb, int width, int height, boolean grid) {
         super(context);
         event_ = event;
 
@@ -37,9 +38,10 @@ public class myView extends View {
     	this.height=height;
     	this.bin=30;
     	this.size=height/30;
+    	this.grid=grid;
 
         mPaint.setColor(rgb);        // mPaint.setTextSize(size);
-        mPaint2.setColor(0xAAFFFFFF); mPaint2.setTextSize(size);
+        mPaint2.setColor(0xFFFFFFFF); mPaint2.setTextSize(size);
         mP1.setColor(0xFFFFFFFF); mP1.setTextSize(size);
         mP2.setColor(0xFFFF0000); mP2.setTextSize(size);
         mP3.setColor(0xFF00FF00); mP3.setTextSize(size);
@@ -53,13 +55,15 @@ public class myView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawText("Event "+event_, 10, 20, mPaint2);
-        canvas.drawText("quarks", 10, 20+height/bin, mP2);
-        canvas.drawText("leptons", 10, 20+height*2/bin, mP3);
-        canvas.drawText("W/Z boson", 10, 20+height*3/bin, mP4);
+        if(grid ) {
+        	canvas.drawText("Event "+event_, 10, 20, mPaint2);
+        	canvas.drawText("quarks", 10, 20+height/bin, mP2);
+        	canvas.drawText("leptons", 10, 20+height*2/bin, mP3);
+        	canvas.drawText("W/Z boson", 10, 20+height*3/bin, mP4);
         
-        canvas.drawLine(cx,  cy-height/3, cx, cy+height/3, mPaint2);
-        canvas.drawLine(cx-width/3, cy, cx+width/3, cy, mPaint2);
-        canvas.drawCircle(cx+x, cy+y, r, mPaint);
+        	canvas.drawLine(cx,  cy-height/3, cx, cy+height/3, mPaint2);
+        	canvas.drawLine(cx-width/3, cy, cx+width/3, cy, mPaint2);
+        }
+        else canvas.drawCircle(cx+x, cy+y, r, mPaint);
     }
 }

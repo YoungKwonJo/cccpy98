@@ -51,7 +51,7 @@ public class viewHelp extends View{
         				   "3: Check the checklist and select a file in the",
         				   "  dropdown menu. The files are located in ",
         				   "  \"/sdcard/\" (Plese, save a lhe file in the ",
-        				   "location!!) ","",
+        				   "  location!!) ","",
         				   "And then you may see the event in ",
         				   "2-dimesion(X-Y) as a view in transverse",
         				   "directon."};

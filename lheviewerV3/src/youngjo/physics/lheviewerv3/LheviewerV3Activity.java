@@ -59,7 +59,7 @@ public class LheviewerV3Activity extends Activity {
         job=true;
         
 ////////////////////////////        
-        File[] listFiles =(new File("/sdcard/download/").listFiles()); 
+        File[] listFiles =(new File("/sdcard/").listFiles()); 
         list = new ArrayList<String>(); 
         for( File file : listFiles ) {
           	if( file.getName().toString().endsWith(".lhe") ) list.add(file.getName().toString());
@@ -187,7 +187,7 @@ public class LheviewerV3Activity extends Activity {
             InputStream is;
             
             if(checkbox.isChecked()) {
-                File file = new File("/sdcard/download/"+list.get(spinner.getSelectedItemPosition()).toString());
+                File file = new File("/sdcard/"+list.get(spinner.getSelectedItemPosition()).toString());
                 xpp.setInput(new InputStreamReader(new FileInputStream(file)));
 
                 //is = myResources.openRawResource(R.raw.tpair);

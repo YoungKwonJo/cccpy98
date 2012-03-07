@@ -39,7 +39,7 @@ public class myView extends View {
     	this.size=height/30;
 
         mPaint.setColor(rgb);        // mPaint.setTextSize(size);
-        mPaint2.setColor(0x11FFFFFF); mPaint2.setTextSize(size);
+        mPaint2.setColor(0xAAFFFFFF); mPaint2.setTextSize(size);
         mP1.setColor(0xFFFFFFFF); mP1.setTextSize(size);
         mP2.setColor(0xFFFF0000); mP2.setTextSize(size);
         mP3.setColor(0xFF00FF00); mP3.setTextSize(size);

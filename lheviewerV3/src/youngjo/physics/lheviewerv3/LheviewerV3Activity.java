@@ -195,7 +195,7 @@ public class LheviewerV3Activity extends Activity {
             }
             else {
                	is = myResources.openRawResource(R.raw.tpair);
-                xpp.setInput(is,"euc-kr");
+                xpp.setInput(is,"UTF-8");
             }
             
             int eventType = xpp.getEventType();
@@ -260,7 +260,7 @@ public class LheviewerV3Activity extends Activity {
     	particle.phi =  particle.px == 0.0 && particle.py == 0.0 ? 0.0 : Math.atan2(particle.py,particle.px);
     	
         String[] quark={"u","d","s","c","b","t"};
-        String[] lepton={"e","任e","伊","任伊","件","任件"};
+        String[] lepton={"e","nu_e","mu","nu_mu","tau","nu_tau"};
         String[] force={"g","A","Z","W","H"};
 
         if(Math.abs(particle.pid) < 10) {

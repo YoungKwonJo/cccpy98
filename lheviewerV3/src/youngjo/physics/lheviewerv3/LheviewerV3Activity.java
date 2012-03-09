@@ -12,6 +12,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -107,46 +108,36 @@ public class LheviewerV3Activity extends Activity {
     	changeView(getEvent( event));
     }  
     public void textEvent(ArrayList<Particle> particles) {
-        String[] str1={"","","","","","","","","","","",""};
-        //int step=1;
+        String[] str1={"","","","","","","","","","","","","","","","","","","","","","","",""};
         for (int i = 0; i < particles.size(); i++) {
-        	Particle particle = particles.get(i);
-            if(((int)particle.m1 == 0 || (int)particle.m2 == 0 )) str1[1] += particle.label;
-        	if(i==2 ) str1[1] += " ¡æ ";
-           // if(((int)particle.m1 == 1 || (int)particle.m2 == 2 )) str1[1] += particle.label; 
+                Particle particle = particles.get(i);
+            if(((int)particle.m1 == 0 && (int)particle.m2 == 0 )) str1[1] += particle.label;
+                if(i==2 ) str1[1] += " => ";
 
             if((int) particle.status == 2) {
-            //	step++;
-            	str1[particle.PN] +=particle.label+" ¡æ ";
+                str1[particle.PN] +=particle.label+" => ";
             }
             if( (int) particle.status != 0 ) {
-            	str1[(int)particle.m1] +=particle.label;
+                str1[(int)particle.m1] +=particle.label;
             }
              
         }
 
-        //String str = str1[1]+"\n"+str1[2]+"\n"+str1[3]+"\n"+str1[4]+"\n"+str1[5]+"\n";
-    	main.addView(new textView(this, str1[1], 1, width, height));
-    	main.addView(new textView(this, str1[2], 2, width, height));
-    	main.addView(new textView(this, str1[3], 3, width, height));
-    	main.addView(new textView(this, str1[4], 4, width, height));
-    	main.addView(new textView(this, str1[5], 5, width, height));
-    	main.addView(new textView(this, str1[6], 6, width, height));
+        for(int i=1;i<particles.size();i++) { 
+        	main.addView(new textView(this, str1[i].toString(), i, width, height));
+        }
     }
     
     public void changeView(ArrayList<Particle> particles) {        
-        //int event = Integer.parseInt(edit.getText().toString());
-       // ArrayList<Particle> particles = getEvent( event);
-        int[] rgb = {0x99FF0000, 0x99AA0000, 0x9900FF00, 0x9900AA00, 0x990000FF, 0x99FFFF00, 0x9900FFFF};
-        
-        //main.addView(new myView(this,200,110,5, 0xFFFF00FF));
+
         main.removeAllViewsInLayout();
  
-        float[] ppx = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, ppy={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        float ppx[]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        float ppy[]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
         textEvent(particles);
 
-        int r=1;
+        //int r=particles.size();
   		main.addView(new myView(this, event , 0, 0, 0, 0,width,height,true));
         for(int i=0;i<particles.size();i++) {
         	Particle particle = particles.get(i);
@@ -156,21 +147,16 @@ public class LheviewerV3Activity extends Activity {
         		ppy[i]=(float)Math.sin(particle.phi)*(float)0.1;
             }
         	else {
+        		
+        		if((int)particle.m2 ==0) particle.m2 = particle.m1;
         		ppx[i]=(ppx[(int)particle.m1-1]+ppx[(int)particle.m2-1])/2 
         				+ (float)Math.cos(particle.phi);
         		ppy[i]=(ppy[(int)particle.m1-1]+ppy[(int)particle.m2-1])/2 
         				+ (float)Math.sin(particle.phi);
         	}
         	
-        	if( Math.abs(particle.pid) < 10 ) r = 0;
-        	else if( Math.abs(particle.pid) < 20 && Math.abs(particle.pid)%2==0 ) r=3;
-        	else if( Math.abs(particle.pid) < 20 ) r = 2;
-        	else if( Math.abs(particle.pid) == 21 ) r = 1;
-        	else if( Math.abs(particle.pid) < 30 ) r=4;
-        	else r=4;
- 
       		main.addView(new myView(this, event , ppx[i], ppy[i],
-                        (int) Math.round(particle.pt)/100+7, rgb[r],width,height,false));
+                        (int) Math.round(particle.pt)/100+7, particle.color,width,height,false));
 
         }
        
@@ -191,8 +177,6 @@ public class LheviewerV3Activity extends Activity {
                 File file = new File("/sdcard/"+list.get(spinner.getSelectedItemPosition()).toString());
                 xpp.setInput(new InputStreamReader(new FileInputStream(file)));
 
-                //is = myResources.openRawResource(R.raw.tpair);
-                //xpp.setInput(is,"euc-kr");
             }
             else {
                	is = myResources.openRawResource(R.raw.tpair);
@@ -215,10 +199,19 @@ public class LheviewerV3Activity extends Activity {
                         	String[] titleData = title.split("\n");
                         	int pN = titleData.length;
 
-                        	for(int i=1; i<pN-1; i++){
-                        		Particle ptr = Info(titleData[i+1].split("\\s+"));
-                        		ptr.PN=i;
-                            	particles.add(ptr);
+                        	for(int i=1; i<pN-1; i++) { 
+                        		if(titleData[i+1].startsWith("#pdf")){
+                        		//	Log.d("log","stop :"+titleData[i+1].toString());
+                        			break;
+                        	    }
+                        		else 
+                        	    {
+                        		//	Log.d("log",titleData[i+1].toString());
+
+                        		    Particle ptr = Info(titleData[i+1].split("\\s+"));
+                        		    ptr.PN=i;
+                            	    particles.add(ptr);
+                        	    }
                         	}
                     	}
                     }
@@ -234,7 +227,7 @@ public class LheviewerV3Activity extends Activity {
     }
     
     class Particle{
-    	int PN, pid, status; 
+    	int PN, pid, status, color; 
     	double m1, m2, d1, d2, E, px, py, pz, m, s1, s2;
     	double pt, phi;
     	String label;
@@ -263,27 +256,44 @@ public class LheviewerV3Activity extends Activity {
         String[] quark={"u","d","s","c","b","t"};
         String[] lepton={"e","nu_e","mu","nu_mu","tau","nu_tau"};
         String[] force={"g","A","Z","W","H"};
+        int[] rgb = {0x99FF0000, 0x99AA0000, 0x9900FF00, 0x9900AA00, 0x990000FF, 0x99FFFF00, 0x9900FFFF};
 
         if(Math.abs(particle.pid) < 10) {
         	particle.label=quark[Math.abs(particle.pid)-1];
+        	particle.color=rgb[0];
         	if(particle.pid < 0) particle.label+="~";    
         }    
         else if(Math.abs(particle.pid) < 20 ) { 
         	particle.label=lepton[Math.abs(particle.pid)-11];
         	
-        	if(particle.pid < 0 && Math.abs(particle.pid)%2==1 ) particle.label+="+";
-        	else if( Math.abs(particle.pid)%2==1) particle.label+="-";
+        	if(particle.pid < 0 && Math.abs(particle.pid)%2==1 ) {
+        		particle.label+="+";
+        		particle.color=rgb[2];
+        	}
+        	else if( Math.abs(particle.pid)%2==1) {
+        		particle.label+="-";
+        		particle.color=rgb[2];
+        	}
         	
-        	if(particle.pid < 0 && Math.abs(particle.pid)%2==0 ) particle.label+="~";
+        	if(particle.pid < 0 && Math.abs(particle.pid)%2==0 ){
+        		particle.label+="~";
+        		particle.color=rgb[3];
+        	} else if(Math.abs(particle.pid)%2==0 ) {
+        		particle.color=rgb[3];
+        	}
         }
         else if(Math.abs(particle.pid) < 30) {
         	particle.label=force[Math.abs(particle.pid)-21];
         	
         	if(particle.pid < 0 && Math.abs(particle.pid) ==24) particle.label+="-";
         	else if( Math.abs(particle.pid) ==24) particle.label+="+";
+        	
+        	if(Math.abs(particle.pid)==22) particle.color=rgb[1]; 
+        	else particle.color=rgb[4];
         }
         else {
-        	particle.label="no sm particle";
+        	particle.label=""+particle.pid;
+        	particle.color=rgb[5];
         }
     	
     	return particle; 

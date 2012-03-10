@@ -214,7 +214,8 @@ public class LheviewerV3Activity extends Activity {
                         	    }
                         	}
                     	}
-                    }
+                    } 
+                    else if (eventNo > 55) break;
                 }
                 eventType = xpp.next();
                 

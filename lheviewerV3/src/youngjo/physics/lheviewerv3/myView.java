@@ -64,6 +64,6 @@ public class myView extends View {
         	canvas.drawLine(cx,  cy-height/3, cx, cy+height/3, mPaint2);
         	canvas.drawLine(cx-width/3, cy, cx+width/3, cy, mPaint2);
         }
-        else canvas.drawCircle(cx+x, cy+y, r, mPaint);
+        else canvas.drawCircle(cx+x-r/2, cy+y, r, mPaint);
     }
 }

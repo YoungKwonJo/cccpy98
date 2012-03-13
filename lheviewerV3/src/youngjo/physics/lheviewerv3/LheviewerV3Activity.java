@@ -290,7 +290,7 @@ public class LheviewerV3Activity extends Activity {
         	if(particle.pid < 0 && Math.abs(particle.pid) ==24) particle.label+="-";
         	else if( Math.abs(particle.pid) ==24) particle.label+="+";
         	
-        	if(Math.abs(particle.pid)==22) particle.color=rgb[1]; 
+        	if(Math.abs(particle.pid)==21) particle.color=rgb[1]; 
         	else particle.color=rgb[4];
         }
         else {

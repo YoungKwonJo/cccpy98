@@ -243,10 +243,11 @@ public class LheviewerV3Activity extends Activity {
     	particle.d1=Integer.parseInt(str[5]);
     	particle.d2=Integer.parseInt(str[6]);
 
-    	particle.E=Double.parseDouble(str[7]);
-    	particle.px=Double.parseDouble(str[8]);
-    	particle.py=Double.parseDouble(str[9]);
-    	particle.pz=Double.parseDouble(str[10]);
+
+    	particle.px=Double.parseDouble(str[7]);
+    	particle.py=Double.parseDouble(str[8]);
+    	particle.pz=Double.parseDouble(str[9]);
+    	particle.E=Double.parseDouble(str[10]);
     	particle.m=Double.parseDouble(str[11]);
     	particle.s1=Double.parseDouble(str[12]);
     	particle.s2=Double.parseDouble(str[13]);
